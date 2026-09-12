@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import storeRateLogo from '../../assets/storerate-logo.png';
 import {
   Search,
   Star,
@@ -17,6 +18,7 @@ export default function UserDashboard() {
 
   const [nameSearch, setNameSearch] = useState('');
   const [addressSearch, setAddressSearch] = useState('');
+  const [ratingFilter, setRatingFilter] = useState('all');
 
   const [sort, setSort] = useState({
     field: 'name',
@@ -91,7 +93,21 @@ export default function UserDashboard() {
   // =========================================
 
   const sortedStores = useMemo(() => {
-    const result = [...stores];
+  const filteredStores = stores.filter((store) => {
+    const hasRating = Number(store.userRating) > 0;
+
+    if (ratingFilter === 'rated') {
+      return hasRating;
+    }
+
+    if (ratingFilter === 'unrated') {
+      return !hasRating;
+    }
+
+    return true;
+  });
+
+  const result = [...filteredStores];
 
     result.sort((a, b) => {
       let valueA;
@@ -148,7 +164,7 @@ export default function UserDashboard() {
     });
 
     return result;
-  }, [stores, sort]);
+ }, [stores, sort, ratingFilter]);
 
   // =========================================
   // SORT TOGGLE
@@ -168,6 +184,17 @@ export default function UserDashboard() {
   // =========================================
   // RATING SELECTION
   // =========================================
+  const getRatingLabel = (rating) => {
+  const labels = {
+    1: 'Poor',
+    2: 'Fair',
+    3: 'Good',
+    4: 'Very Good',
+    5: 'Excellent',
+  };
+
+  return labels[rating] || 'Select a rating';
+};
 
   const selectRating = (
     storeId,
@@ -269,20 +296,17 @@ export default function UserDashboard() {
 
         <div className="topbar-brand">
 
-          <div className="brand-mark small">
-            S
-          </div>
+          <div className="topbar-brand">
+  <img
+    src={storeRateLogo}
+    alt="StoreRate"
+    className="topbar-logo"
+  />
 
-          <div>
-            <strong>
-              StoreRate
-            </strong>
-
-            <span>
-              User Portal
-            </span>
-          </div>
-
+  <div>
+    <span>User Portal</span>
+  </div>
+</div>
         </div>
 
         <div className="topbar-actions">
@@ -365,14 +389,45 @@ export default function UserDashboard() {
               </h2>
 
               <p>
-                Search by store name or address.
+                View store ratings and submit or
+                update your rating.
               </p>
 
             </div>
 
           </div>
+          <div className="rating-summary">
+  <div className="summary-card">
+    <span className="summary-label">Total Stores</span>
+    <strong>{stores.length}</strong>
+  </div>
+
+  <div className="summary-card">
+    <span className="summary-label">Rated by You</span>
+    <strong>
+      {stores.filter((store) => Number(store.userRating) > 0).length}
+    </strong>
+  </div>
+
+  <div className="summary-card">
+    <span className="summary-label">Not Rated</span>
+    <strong>
+      {stores.filter((store) => !Number(store.userRating)).length}
+    </strong>
+  </div>
+</div>
 
           <div className="filters-row">
+            <select
+  className="filter-select"
+  value={ratingFilter}
+  onChange={(e) => setRatingFilter(e.target.value)}
+  aria-label="Filter stores by rating status"
+>
+  <option value="all">All Stores</option>
+  <option value="rated">Rated by Me</option>
+  <option value="unrated">Not Rated</option>
+</select>
 
             <div className="search-box">
 
@@ -639,6 +694,11 @@ export default function UserDashboard() {
                                 )}
 
                               </div>
+                              <div className="rating-description">
+  {currentRating > 0
+    ? `${currentRating}/5 — ${getRatingLabel(currentRating)}`
+    : 'Choose a rating'}
+</div>
 
                               <button
                                 type="button"

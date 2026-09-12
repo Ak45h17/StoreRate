@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import storeRateLogo from "../assets/storerate-logo.png";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -46,7 +47,11 @@ export default function Register() {
   return (
     <div className="auth-page">
       <div className="auth-card register-card">
-        <div className="brand-mark">S</div>
+       <img
+  src={storeRateLogo}
+  alt="StoreRate"
+  className="auth-logo"
+/>
 
         <h1>Create your account</h1>
 

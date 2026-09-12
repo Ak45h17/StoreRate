@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import storeRateLogo from '../../assets/storerate-logo.png';
 import {
   Search,
   Plus,
@@ -375,14 +376,15 @@ export default function AdminDashboard() {
 
       <header className="topbar">
         <div className="topbar-brand">
-          <div className="brand-mark small">
-            S
-          </div>
+         <img
+  src={storeRateLogo}
+  alt="StoreRate"
+  className="topbar-logo"
+/>
 
-          <div>
-            <strong>StoreRate</strong>
-            <span>Administration</span>
-          </div>
+<div>
+  <span>Administration</span>
+</div>
         </div>
 
         <button
@@ -428,7 +430,44 @@ export default function AdminDashboard() {
         {/* =========================
             STATISTICS
         ========================= */}
+        <div className="stat-card">
+  <div className="stat-icon blue">
+    <Users size={20} />
+  </div>
 
+  <div>
+    <span>Normal Users</span>
+    <strong>
+      {users.filter((user) => user.role === 'USER').length}
+    </strong>
+  </div>
+</div>
+
+<div className="stat-card">
+  <div className="stat-icon green">
+    <Users size={20} />
+  </div>
+
+  <div>
+    <span>Store Owners</span>
+    <strong>
+      {users.filter((user) => user.role === 'STORE_OWNER').length}
+    </strong>
+  </div>
+</div>
+
+<div className="stat-card">
+  <div className="stat-icon amber">
+    <Users size={20} />
+  </div>
+
+  <div>
+    <span>Administrators</span>
+    <strong>
+      {users.filter((user) => user.role === 'ADMIN').length}
+    </strong>
+  </div>
+</div>
         <section className="stats-grid">
           <div className="stat-card">
             <div className="stat-icon blue">

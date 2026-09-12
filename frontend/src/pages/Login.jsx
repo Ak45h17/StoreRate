@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LockKeyhole, Mail } from 'lucide-react';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import storeRateLogo from "../assets/storerate-logo.png";
+
 
 export default function Login() {
   const navigate = useNavigate();
@@ -50,15 +52,19 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
-        <div className="brand-mark">S</div>
+   <div className="auth-page">
+  <div className="auth-card">
+    <img
+      src={storeRateLogo}
+      alt="StoreRate"
+      className="auth-logo"
+    />
 
-        <h1>Welcome to StoreRate</h1>
+    <h1>Welcome to StoreRate</h1>
 
-        <p className="auth-subtitle">
-          Sign in to manage and rate stores.
-        </p>
+    <p className="auth-subtitle">
+      Sign in to manage and rate stores.
+    </p>
 
         {error && (
           <div className="alert alert-error">

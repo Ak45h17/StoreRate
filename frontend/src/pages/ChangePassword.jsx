@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Lock, ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import storeRateLogo from "../assets/storerate-logo.png";
 
 export default function ChangePassword() {
   const navigate = useNavigate();
@@ -126,9 +127,11 @@ export default function ChangePassword() {
         </button>
 
         <div className="auth-header">
-          <div className="brand-mark">
-            S
-          </div>
+         <img
+  src={storeRateLogo}
+  alt="StoreRate"
+  className="auth-logo"
+/>
 
           <h1>Change Password</h1>
 

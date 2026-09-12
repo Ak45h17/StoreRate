@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import storeRateLogo from '../../assets/storerate-logo.png';
 import {
   Store,
   Star,
@@ -237,6 +238,19 @@ export default function OwnerDashboard() {
           ).toFixed(1),
         )
       : 0;
+      const ratingDistribution = [1, 2, 3, 4, 5].map(
+  (rating) => ({
+    rating,
+    count: stores.reduce(
+      (total, store) =>
+        total +
+        (store.ratings || []).filter(
+          (item) => Number(item.rating) === rating,
+        ).length,
+      0,
+    ),
+  }),
+);
 
   return (
     <div className="dashboard-page">
@@ -249,19 +263,15 @@ export default function OwnerDashboard() {
 
         <div className="topbar-brand">
 
-          <div className="brand-mark small">
-            S
-          </div>
+         <img
+  src={storeRateLogo}
+  alt="StoreRate"
+  className="topbar-logo"
+/>
 
-          <div>
-            <strong>
-              StoreRate
-            </strong>
-
-            <span>
-              Store Owner
-            </span>
-          </div>
+<div>
+  <span>Store Owner</span>
+</div>
 
         </div>
 
@@ -326,191 +336,272 @@ export default function OwnerDashboard() {
             OWNER INFORMATION
         ====================================== */}
 
-        <section className="dashboard-section">
+       <section className="dashboard-section">
 
-          <div className="section-header">
+  <div className="section-header">
 
-            <div>
+    <div>
 
-              <h2>
-                Owner Information
-              </h2>
+      <h2>
+        Owner Information
+      </h2>
 
-              <p>
-                Account information associated
-                with your store.
-              </p>
+      <p>
+        Account information associated
+        with your store.
+      </p>
 
-            </div>
+    </div>
 
-          </div>
+  </div>
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns:
-                'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '0',
-              padding: '20px 18px',
-            }}
-          >
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns:
+        'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: '0',
+      padding: '20px 18px',
+    }}
+  >
 
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '6px',
-                padding: '0 20px 0 0',
-                minWidth: 0,
-              }}
-            >
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '6px',
+        padding: '0 20px 0 0',
+        minWidth: 0,
+      }}
+    >
 
-              <span
-                style={{
-                  fontSize: '12px',
-                  color: '#64748b',
-                  fontWeight: 500,
-                }}
-              >
-                Name
-              </span>
+      <span
+        style={{
+          fontSize: '12px',
+          color: '#64748b',
+          fontWeight: 500,
+        }}
+      >
+        Name
+      </span>
 
-              <strong
-                style={{
-                  fontSize: '14px',
-                  color: '#0f172a',
-                  fontWeight: 600,
-                  wordBreak: 'break-word',
-                }}
-              >
-                {owner?.name || '-'}
-              </strong>
+      <strong
+        style={{
+          fontSize: '14px',
+          color: '#0f172a',
+          fontWeight: 600,
+          wordBreak: 'break-word',
+        }}
+      >
+        {owner?.name || '-'}
+      </strong>
 
-            </div>
+    </div>
 
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '6px',
-                padding: '0 20px',
-                minWidth: 0,
-                borderLeft:
-                  '1px solid #e2e8f0',
-              }}
-            >
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '6px',
+        padding: '0 20px',
+        minWidth: 0,
+        borderLeft:
+          '1px solid #e2e8f0',
+      }}
+    >
 
-              <span
-                style={{
-                  fontSize: '12px',
-                  color: '#64748b',
-                  fontWeight: 500,
-                }}
-              >
-                Email
-              </span>
+      <span
+        style={{
+          fontSize: '12px',
+          color: '#64748b',
+          fontWeight: 500,
+        }}
+      >
+        Email
+      </span>
 
-              <strong
-                style={{
-                  fontSize: '14px',
-                  color: '#0f172a',
-                  fontWeight: 600,
-                  wordBreak: 'break-word',
-                }}
-              >
-                {owner?.email || '-'}
-              </strong>
+      <strong
+        style={{
+          fontSize: '14px',
+          color: '#0f172a',
+          fontWeight: 600,
+          wordBreak: 'break-word',
+        }}
+      >
+        {owner?.email || '-'}
+      </strong>
 
-            </div>
+    </div>
 
-          </div>
+  </div>
 
-        </section>
+</section>
 
-        {/* =====================================
-            STATISTICS
-        ====================================== */}
 
-        <section className="stats-grid">
+{/* =====================================
+    STATISTICS
+====================================== */}
 
-          <div className="stat-card">
+<section className="stats-grid">
 
-            <div className="stat-icon green">
-              <Store size={20} />
-            </div>
+  <div className="stat-card">
 
-            <div>
+    <div className="stat-icon green">
+      <Store size={20} />
+    </div>
 
-              <span>
-                Total Stores
-              </span>
+    <div>
 
-              <strong>
-                {totalStores}
-              </strong>
+      <span>
+        Total Stores
+      </span>
 
-            </div>
+      <strong>
+        {totalStores}
+      </strong>
 
-          </div>
+    </div>
 
-          <div className="stat-card">
+  </div>
 
-            <div className="stat-icon amber">
-              <Star size={20} />
-            </div>
 
-            <div>
+  <div className="stat-card">
 
-              <span>
-                Average Rating
-              </span>
+    <div className="stat-icon amber">
+      <Star size={20} />
+    </div>
 
-              <strong
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '5px',
-                }}
-              >
+    <div>
 
-                <Star
-                  size={17}
-                  fill="currentColor"
-                />
+      <span>
+        Average Rating
+      </span>
 
-                {overallRating}
+      <strong
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '5px',
+        }}
+      >
 
-              </strong>
+        <Star
+          size={17}
+          fill="currentColor"
+        />
 
-            </div>
+        {overallRating}
 
-          </div>
+      </strong>
 
-          <div className="stat-card">
+    </div>
 
-            <div className="stat-icon blue">
-              <Users size={20} />
-            </div>
+  </div>
 
-            <div>
 
-              <span>
-                Total Ratings
-              </span>
+  <div className="stat-card">
 
-              <strong>
-                {totalRatings}
-              </strong>
+    <div className="stat-icon blue">
+      <Users size={20} />
+    </div>
 
-            </div>
+    <div>
 
-          </div>
+      <span>
+        Total Ratings
+      </span>
 
-        </section>
+      <strong>
+        {totalRatings}
+      </strong>
 
-        {/* =====================================
-            STORES
-        ====================================== */}
+    </div>
+
+  </div>
+
+</section>
+
+
+{/* =====================================
+    RATING DISTRIBUTION
+====================================== */}
+
+<section className="dashboard-section">
+
+  <div className="section-header">
+
+    <div>
+
+      <h2>
+        Rating Distribution
+      </h2>
+
+      <p>
+        Breakdown of customer ratings
+        across your stores.
+      </p>
+
+    </div>
+
+  </div>
+
+  <div
+    style={{
+      display: 'grid',
+      gridTemplateColumns:
+        'repeat(auto-fit, minmax(110px, 1fr))',
+      gap: '12px',
+      padding: '18px',
+    }}
+  >
+
+    {ratingDistribution.map((item) => (
+
+      <div
+        key={item.rating}
+        style={{
+          padding: '14px',
+          border: '1px solid #e2e8f0',
+          borderRadius: '8px',
+          textAlign: 'center',
+          background: '#f8fafc',
+        }}
+      >
+
+        <div
+          style={{
+            fontSize: '13px',
+            color: '#64748b',
+            marginBottom: '6px',
+          }}
+        >
+          {item.rating} Star
+          {item.rating > 1 ? 's' : ''}
+        </div>
+
+        <strong
+          style={{
+            fontSize: '22px',
+            color: '#0f172a',
+          }}
+        >
+          {item.count}
+        </strong>
+
+      </div>
+
+    ))}
+
+  </div>
+
+</section>
+
+
+{/* =====================================
+    STORES
+====================================== */}
+
+
 
         {stores.length === 0 ? (
 

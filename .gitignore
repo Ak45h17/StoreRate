@@ -1,82 +1,31 @@
-# =========================
 # Dependencies
-# =========================
-
 node_modules/
-**/node_modules/
 
-
-# =========================
-# Environment / Secrets
-# =========================
-
+# Environment files
 .env
 .env.*
 !.env.example
 
-**/.env
-**/.env.*
-!**/.env.example
-
-
-# =========================
-# Build Output
-# =========================
-
+# Build output
 dist/
-**/dist/
 build/
-**/build/
 
-
-# =========================
-# Local Database / Docker
-# =========================
-
-docker-data/
-
-
-# =========================
-# IDE
-# =========================
-
-.idea/
-.vscode/
-
-
-# =========================
-# OS
-# =========================
-
-.DS_Store
-Thumbs.db
-
-
-# =========================
 # Logs
-# =========================
-
 *.log
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
 
+# IDE
+.vscode/
+.idea/
 
-# =========================
-# Testing / Coverage
-# =========================
+# OS
+.DS_Store
+Thumbs.db
 
+# Coverage
 coverage/
-.nyc_output/
 
-
-# =========================
-# Temporary files
-# =========================
-
-*.tmp
-*.temp
-# Local AI / IDE tooling
-backend/.agents/
-backend/.claude/
-backend/.windsurf/
+# Local database / Docker data
+docker-data/
